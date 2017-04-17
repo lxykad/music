@@ -2,18 +2,18 @@ package com.lxy.music.base;
 
 
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.lxy.music.R;
+import com.lxy.music.databinding.FragmentGuidBinding;
 
-
-public abstract class BaseFragment extends Fragment {
+/**
+ * 引导页fragment 的基类
+ */
+public abstract class GuidBaseFragment extends Fragment {
 
     /**
      * fragmengt是否初始化完成
@@ -23,59 +23,63 @@ public abstract class BaseFragment extends Fragment {
     /**
      * fragmengt是否可以加载数据
      */
-    protected boolean isCanLoadData = false;
+    protected boolean isLoadData = false;
+    protected FragmentGuidBinding mBinding;
 
 
-    public BaseFragment() {
+    public GuidBaseFragment() {
 
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewDataBinding binding = DataBindingUtil.inflate(inflater, getResourceId(), container, false);
+        mBinding = DataBindingUtil.inflate(inflater, getResourceId(), container, false);
 
         isInitComplete = true;
-        canLoadData();
-
-        return binding.getRoot();
+        judgeIsCanLoadData();
+        //startPlay();
+        return mBinding.getRoot();
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser) {
-
-        }
-
+        judgeIsCanLoadData();
     }
 
-    private void canLoadData() {
+    private void judgeIsCanLoadData() {
 
         if (!isInitComplete) {
             return;
         }
 
-
         //界面可见
         if (getUserVisibleHint()) {
-            isCanLoadData = true;
-            loadData();
-        }else {
+            isLoadData = true;
+            lazyLoadData();
+        } else {
             //界面不可见
-            stopLoadData();
+            if (isLoadData) {
+                stopLoadData();
+            }
+
         }
 
     }
 
-    private void stopLoadData() {
-
+    public void startPlay(){
+        if (!isInitComplete) {
+            return;
+        }
+        lazyLoadData();
     }
 
+    protected abstract void stopLoadData();
+
     //加载数据
-    protected abstract void loadData();
+    protected abstract void lazyLoadData();
 
     //获取布局id
     protected abstract int getResourceId();

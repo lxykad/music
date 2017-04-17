@@ -17,15 +17,32 @@
             android:id="@+id/indicator_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#d1d1d1"
+            android:background="#00000000"
             app:layout_marginTopPercent="60%">
 
-            <TextView
-                android:id="@+id/tv_count"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:padding="10dp" />
+            <View
+                android:id="@+id/view2"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_circle_gray" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_toLeftOf="@+id/view2"
+                android:background="@drawable/shape_circle_red" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@+id/view2"
+                android:background="@drawable/shape_circle_gray" />
 
 
         </RelativeLayout>
@@ -36,7 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/indicator_layout"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
+            android:onClick="clickHome"
             android:text="进入应用"
             android:visibility="gone" />
 

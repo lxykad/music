@@ -10,23 +10,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".splash.SplashActivity">
-
-        </activity>
-
+        <activity android:name=".splash.SplashActivity" />
         <activity android:name=".guid.GuidActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
         <activity android:name=".home.MainActivity" />
+
         <activity android:name=".base.BaseActivity" />
+        <activity
+            android:name=".home.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".home.MainHomeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_main_home"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

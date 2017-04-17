@@ -2,9 +2,13 @@ package com.lxy.music.base;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -12,9 +16,9 @@ import android.view.WindowManager;
 
 import com.lxy.music.R;
 import com.lxy.music.util.ActivityManager;
-import com.lxy.music.util.SystemBarTintManager;
+import com.lxy.music.util.UiUtils;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,27 +27,10 @@ public class BaseActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //
         ActivityManager.getInstance().addActivity(this);
-        //
-        setTransLucentStatus(true);
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.status_bar_color);//通知栏所需颜色
+        //设置状态栏颜色
+        setStatusTranslucent();
+        setFitsWindow(true);
     }
-
-    public void setTransLucentStatus(boolean on) {
-        Window window = getWindow();
-        WindowManager.LayoutParams params = window.getAttributes();
-
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            params.flags |= bits;
-        } else {
-            params.flags &= ~bits;
-        }
-        window.setAttributes(params);
-
-    }
-
 
     //snack
     public void showSnackBar(View view, @Nullable String content) {
@@ -57,7 +44,6 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -65,4 +51,46 @@ public class BaseActivity extends AppCompatActivity {
         ActivityManager.getInstance().removeActivity(this);
 
     }
+
+    public void setStatusTranslucent() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0及以上
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//4.4到5.0
+            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+        }
+    }
+
+    public void setFitsWindow(boolean fits) {
+
+        if (!fits) {
+            return;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0及以
+
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(ContextCompat.getColor(this, R.color.status_bar_color));
+
+            View viewById = findViewById(android.R.id.content);
+            ViewCompat.setFitsSystemWindows(viewById, false);
+            viewById.setPadding(0, UiUtils.getStatusBarHeight(this), 0, 0);
+
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//4.4到5.0
+            //此方法 4.4以上通用
+            View viewById = findViewById(android.R.id.content);
+            ViewCompat.setFitsSystemWindows(viewById, false);
+            viewById.setBackgroundColor(ContextCompat.getColor(this, R.color.status_bar_color));
+            viewById.setPadding(0, UiUtils.getStatusBarHeight(this), 0, 0);
+        }
+
+    }
+
 }

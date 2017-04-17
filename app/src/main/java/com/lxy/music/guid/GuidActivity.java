@@ -4,17 +4,17 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.lxy.music.R;
+import com.lxy.music.base.BaseActivity;
 import com.lxy.music.databinding.ActivityGuidBinding;
+import com.lxy.music.home.HomeActivity;
+import com.lxy.music.home.MainActivity;
 
 import java.util.ArrayList;
 
-public class GuidActivity extends AppCompatActivity {
+public class GuidActivity extends BaseActivity {
 
     private ActivityGuidBinding mBinding;
     private ArrayList<Fragment> mFragments;
@@ -23,13 +23,18 @@ public class GuidActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTransLucentStatus(true);
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_guid);
 
         iniData();
         iniView();
         initEvents();
+
+    }
+
+    @Override
+    public void setFitsWindow(boolean fits) {
+        super.setFitsWindow(false);
     }
 
     private void iniData() {
@@ -62,6 +67,7 @@ public class GuidActivity extends AppCompatActivity {
         mAdapter = new GuidPagerAdapter(getSupportFragmentManager(), mFragments);
         mBinding.viewPager.setOffscreenPageLimit(3);
         mBinding.viewPager.setAdapter(mAdapter);
+
     }
 
     public void initEvents() {
@@ -74,11 +80,28 @@ public class GuidActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 //小红点 bt显示或隐藏
-                mBinding.tvCount.setText("" + position);
+                //mBinding.tvCount.setText("" + position);
                 if (position == 2) {
                     mBinding.btStartApp.setVisibility(View.VISIBLE);
                 } else {
                     mBinding.btStartApp.setVisibility(View.GONE);
+                }
+
+                if (position == 0) {
+                    mBinding.view1.setBackgroundResource(R.drawable.shape_circle_red);
+                    mBinding.view2.setBackgroundResource(R.drawable.shape_circle_gray);
+                    mBinding.view3.setBackgroundResource(R.drawable.shape_circle_gray);
+
+                } else if (position == 1) {
+                    mBinding.view2.setBackgroundResource(R.drawable.shape_circle_red);
+                    mBinding.view1.setBackgroundResource(R.drawable.shape_circle_gray);
+                    mBinding.view3.setBackgroundResource(R.drawable.shape_circle_gray);
+
+                } else if (position == 2) {
+                    mBinding.view3.setBackgroundResource(R.drawable.shape_circle_red);
+                    mBinding.view1.setBackgroundResource(R.drawable.shape_circle_gray);
+                    mBinding.view2.setBackgroundResource(R.drawable.shape_circle_gray);
+
                 }
 
             }
@@ -90,18 +113,9 @@ public class GuidActivity extends AppCompatActivity {
         });
     }
 
-    public void setTransLucentStatus(boolean on) {
-        Window window = getWindow();
-        WindowManager.LayoutParams params = window.getAttributes();
-
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            params.flags |= bits;
-        } else {
-            params.flags &= ~bits;
-        }
-        window.setAttributes(params);
-
+    public void clickHome(View view) {
+        startToActivity(MainActivity.class);
+        this.finish();
     }
 
 }

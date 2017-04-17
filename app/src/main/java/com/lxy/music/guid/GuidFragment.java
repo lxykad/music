@@ -3,17 +3,16 @@ package com.lxy.music.guid;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.lxy.music.R;
+import com.lxy.music.base.GuidBaseFragment;
 
 
-public class GuidFragment extends Fragment {
+public class GuidFragment extends GuidBaseFragment {
 
-    //private FragmentGuidBinding mBinding;
     private Uri mUri;
     private CustomVideoView mCustomVideoView;
 
@@ -27,9 +26,9 @@ public class GuidFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        mCustomVideoView = new CustomVideoView(getActivity());
+    protected void lazyLoadData() {
+
+        mCustomVideoView = mBinding.customVideoView;
 
         String page = getArguments().getString("page");
 
@@ -46,33 +45,20 @@ public class GuidFragment extends Fragment {
             mUri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.guide_3);
         }
 
-        //mCustomVideoView.startPlay(mUri);
-
-        return mCustomVideoView;
+        mCustomVideoView.startPlay(mUri);
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            System.out.println("setUserVisibleHint======");
-            //mCustomVideoView.startPlay(mUri);
-            if (mCustomVideoView!=null) {
-                mCustomVideoView.startPlay(mUri);
-            }
-        }else {
-            if (mCustomVideoView!=null) {
-                mCustomVideoView.stopPlayback();
-            }
-        }
+    protected int getResourceId() {
+
+        return R.layout.fragment_guid;
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-
+    protected void stopLoadData() {
         if (mCustomVideoView != null) {
             mCustomVideoView.stopPlayback();
         }
     }
+
 }
