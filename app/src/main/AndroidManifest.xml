@@ -19,7 +19,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".home.MainActivity" />
-
         <activity android:name=".base.BaseActivity" />
         <activity
             android:name=".home.HomeActivity"
@@ -29,7 +28,11 @@
             android:name=".home.MainHomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_main_home"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name=".home.TestActivity"
+            android:label="@string/title_activity_test"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

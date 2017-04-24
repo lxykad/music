@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/tools">
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
@@ -15,25 +16,56 @@
             android:layout_height="match_parent"
             android:background="@color/status_bar_color">
 
-            <android.support.design.widget.AppBarLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:theme="@style/AppTheme.AppBarOverlay"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
 
-                <TextView
-                    android:id="@+id/tv_main"
+                <RelativeLayout
+                    android:id="@+id/toolbar_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="20dp"
-                    android:text="main" />
+                    android:layout_height="@dimen/toolbar_height">
 
-            </android.support.design.widget.AppBarLayout>
+                    <ImageView
+                        android:id="@+id/iv_home_draw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_drawer_home" />
 
-            <android.support.v4.view.ViewPager
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#ffffff" />
+                    <ImageView
+                        android:id="@+id/iv_avatar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/iv_home_draw"
+                        android:src="@mipmap/ic_launcher" />
 
+                </RelativeLayout>
+
+                <com.flyco.tablayout.SlidingTabLayout
+                    android:id="@+id/sliding_tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@color/status_bar_color"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    app:tl_indicator_margin_left="2dp"
+                    app:tl_indicator_margin_right="2dp"
+                    app:tl_indicator_style="BLOCK" />
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#ffffff"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            </LinearLayout>
 
         </android.support.design.widget.CoordinatorLayout>
 
@@ -49,7 +81,7 @@
                 android:layout_height="0dp"
                 android:background="#ffffff"
                 app:layout_heightPercent="100%"
-                app:layout_widthPercent="90%">
+                app:layout_widthPercent="100%">
 
                 <TextView
                     android:id="@+id/tv_left"
