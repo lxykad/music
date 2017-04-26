@@ -9,8 +9,7 @@ import android.view.View;
 import com.lxy.music.R;
 import com.lxy.music.base.BaseActivity;
 import com.lxy.music.databinding.ActivityGuidBinding;
-import com.lxy.music.home.HomeActivity;
-import com.lxy.music.home.MainActivity;
+import com.lxy.music.home.main.MainActivity;
 
 import java.util.ArrayList;
 

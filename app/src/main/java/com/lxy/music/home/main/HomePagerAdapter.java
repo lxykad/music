@@ -1,4 +1,4 @@
-package com.lxy.music.home;
+package com.lxy.music.home.main;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

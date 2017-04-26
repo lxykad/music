@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import com.lxy.music.home.Song;
+import com.lxy.music.common.Song;
 
 import java.util.ArrayList;
 import java.util.List;

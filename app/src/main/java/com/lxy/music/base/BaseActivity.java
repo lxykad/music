@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.lxy.music.R;
 import com.lxy.music.util.ActivityManager;
@@ -35,6 +36,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     //snack
     public void showSnackBar(View view, @Nullable String content) {
         Snackbar.make(view, content, Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void showToast(String content) {
+        Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
     }
 
     //页面跳转

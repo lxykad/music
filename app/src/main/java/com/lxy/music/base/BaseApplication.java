@@ -2,8 +2,6 @@ package com.lxy.music.base;
 
 import android.app.Application;
 
-import com.lxy.music.util.permission.PermissionManager;
-
 /**
  * Created by lxy on 2017/4/16.
  */
@@ -22,7 +20,6 @@ public class BaseApplication extends Application {
         super.onCreate();
 
         instance = this;
-        PermissionManager.init(this);
 
     }
 }

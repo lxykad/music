@@ -1,4 +1,4 @@
-package com.lxy.music.home;
+package com.lxy.music.common;
 
 import android.net.Uri;
 import android.text.TextUtils;
