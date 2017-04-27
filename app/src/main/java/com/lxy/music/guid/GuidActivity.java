@@ -25,6 +25,7 @@ public class GuidActivity extends BaseActivity {
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_guid);
 
+
         iniData();
         iniView();
         initEvents();

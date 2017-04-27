@@ -23,7 +23,7 @@ public class LocalMusicUtil {
      * @param context
      * @return
      */
-    public static List<Song> getAllSongs(Context context) {
+    public static ArrayList<Song> getAllSongs(Context context) {
 
         ArrayList<Song> songs = new ArrayList<>();
         String selectionStatement = "is_music=1 AND title !=''";
