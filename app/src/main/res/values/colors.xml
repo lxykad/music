@@ -8,6 +8,7 @@
     <color name="translucent_color">#00000000</color>
 
     <color name="black_overlay">#66000000</color>
+    <color name="main_color">#39c6c1</color>
     <color name="bg_red">#de342f</color>
 
 </resources>

@@ -2,10 +2,6 @@ package com.lxy.music.guid;
 
 
 import android.net.Uri;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.lxy.music.R;
 import com.lxy.music.base.GuidBaseFragment;

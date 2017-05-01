@@ -1,6 +1,7 @@
 package com.lxy.music.home.main;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -9,7 +10,12 @@ import android.support.v4.app.Fragment;
 
 import com.lxy.music.R;
 import com.lxy.music.base.BaseActivity;
+import com.lxy.music.base.BaseApplication;
+import com.lxy.music.data.ApiService;
 import com.lxy.music.databinding.ActivityMainBinding;
+import com.lxy.music.di.component.AppComponent;
+import com.lxy.music.di.component.DaggerActivityComponent;
+import com.lxy.music.di.module.ActivityMoudle;
 import com.lxy.music.home.find.ui.FindFragment;
 import com.lxy.music.home.left.local.ui.LocalMusicActivity;
 import com.lxy.music.home.main.iview.MainLocalMusicListener;
@@ -19,6 +25,10 @@ import com.lxy.music.util.PermissionUtil;
 import com.lxy.music.util.UiUtils;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
+
+import okhttp3.OkHttpClient;
 
 public class MainActivity extends BaseActivity implements MainLocalMusicListener {
 
@@ -36,6 +46,10 @@ public class MainActivity extends BaseActivity implements MainLocalMusicListener
 
         mBinding.coorLayout.setPadding(0, h, 0, 0);
         //mBinding.ivHeader.setPadding(0, h, 0, 0);
+
+        DaggerActivityComponent.builder().appComponent(BaseApplication.getInstance().getAppComponent())
+
+               .activityMoudle(new ActivityMoudle()).build().inject(this);
 
         initData();
         initEvents();

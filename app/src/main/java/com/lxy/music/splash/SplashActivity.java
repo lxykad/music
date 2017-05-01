@@ -21,7 +21,7 @@ public class SplashActivity extends BaseActivity {
 
         mBinding.pathView.getPathAnimator()
                 .delay(300)
-                .duration(2000)
+                .duration(4000)
                 .listenerEnd(new PathView.AnimatorBuilder.ListenerEnd() {
                     @Override
                     public void onAnimationEnd() {
@@ -31,6 +31,5 @@ public class SplashActivity extends BaseActivity {
                 })
                 .interpolator(new AccelerateDecelerateInterpolator())
                 .start();
-
     }
 }
