@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -20,6 +21,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class HttpModule {
+
+    /**
+     * 连接超时时间，单位s
+     */
+    private static final byte DEFAULT_CONNECT_TIMEOUT = 10;
+    /**
+     * 读超时时间，单位s
+     */
+    private static final int DEFAULT_READ_TIMEOUT = 10;
+    /**
+     * 写超时时间，单位s
+     */
+    private static final int DEFAULT_WRITE_TIMEOUT = 10;
+
 
     @Provides
     @Singleton
@@ -38,8 +53,8 @@ public class HttpModule {
         // HeadInterceptor实现了Interceptor，用来往Request Header添加一些业务相关数据，如APP版本，token信息
 //                .addInterceptor(new HeadInterceptor())
                     .addInterceptor(loggingInterceptor)
-                    .connectTimeout(10, TimeUnit.SECONDS)
-                    .readTimeout(10,TimeUnit.SECONDS)
+                    .connectTimeout(DEFAULT_CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                    .readTimeout(DEFAULT_READ_TIMEOUT,TimeUnit.SECONDS)
                     .build();
     }
 

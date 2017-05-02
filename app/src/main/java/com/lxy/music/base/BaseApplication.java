@@ -17,6 +17,19 @@ public class BaseApplication extends Application {
 
     private static BaseApplication instance;
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        instance = this;
+
+        mAppComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .httpModule(new HttpModule())
+                .build();
+
+    }
+
     public static BaseApplication getInstance() {
 
         return instance;
@@ -25,19 +38,5 @@ public class BaseApplication extends Application {
     public AppComponent getAppComponent() {
 
         return mAppComponent;
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        instance = this;
-
-       /* mAppComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .httpModule(new HttpModule())
-                .build();*/
-       mAppComponent = DaggerAppComponent.create();
-
     }
 }

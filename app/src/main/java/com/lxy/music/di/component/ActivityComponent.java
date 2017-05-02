@@ -11,7 +11,7 @@ import dagger.Component;
  */
 
 @ActivityScope
-@Component(modules = ActivityMoudle.class,dependencies = AppComponent.class)
+@Component(modules = ActivityMoudle.class, dependencies = AppComponent.class)
 public interface ActivityComponent {
 
     void inject(MainActivity activity);

@@ -1,5 +1,6 @@
 package com.lxy.music.di.module;
 
+import com.google.gson.Gson;
 import com.lxy.music.base.BaseApplication;
 
 import javax.inject.Singleton;
@@ -25,6 +26,13 @@ public class AppModule {
     public BaseApplication provideApplication(){
 
         return mApplication;
+    }
+
+    @Provides
+    @Singleton
+    public Gson provideGson(){
+
+        return new Gson();
     }
 
 
