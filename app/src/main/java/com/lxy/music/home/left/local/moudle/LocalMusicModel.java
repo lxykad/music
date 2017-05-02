@@ -1,9 +1,8 @@
 package com.lxy.music.home.left.local.moudle;
 
-import android.content.Context;
-
+import com.lxy.music.base.BaseApplication;
 import com.lxy.music.common.Song;
-import com.lxy.music.home.left.local.Iface.ILocalMusic;
+import com.lxy.music.home.left.local.callback.LocalMusicCallback;
 import com.lxy.music.util.LocalMusicUtil;
 
 import java.util.ArrayList;
@@ -17,21 +16,15 @@ import rx.schedulers.Schedulers;
  * Created by lxy on 2017/4/27.
  */
 
-public class LocalMusicMoudle {
+public class LocalMusicModel {
 
-    private ILocalMusic mLocalMusicListener;
-
-    public LocalMusicMoudle(ILocalMusic localMusic) {
-        mLocalMusicListener = localMusic;
-    }
-
-    public ArrayList<Song> getLocalMusic(final Context context) {
+    public void getLocalMusic(final LocalMusicCallback callback) {
 
         Observable.create(new Observable.OnSubscribe<ArrayList<Song>>() {
             @Override
             public void call(Subscriber<? super ArrayList<Song>> subscriber) {
 
-                ArrayList<Song> allSongs = LocalMusicUtil.getAllSongs(context);
+                ArrayList<Song> allSongs = LocalMusicUtil.getAllSongs(BaseApplication.getInstance());
                 subscriber.onNext(allSongs);
                 subscriber.onCompleted();
             }
@@ -45,16 +38,16 @@ public class LocalMusicMoudle {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        callback.onError();
                     }
 
                     @Override
                     public void onNext(ArrayList<Song> songs) {
-                        System.out.println("LocalMusicMoudle========onNext====" + songs.size());
-                        mLocalMusicListener.onComplete(songs);
+
+                        callback.onSuccess(songs);
+
+
                     }
                 });
-
-        return null;
     }
 }

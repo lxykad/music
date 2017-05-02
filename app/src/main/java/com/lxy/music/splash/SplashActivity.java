@@ -8,6 +8,7 @@ import com.eftimoff.androipathview.PathView;
 import com.lxy.music.R;
 import com.lxy.music.base.BaseActivity;
 import com.lxy.music.databinding.ActivitySplashBinding;
+import com.lxy.music.di.component.AppComponent;
 import com.lxy.music.guid.GuidActivity;
 
 public class SplashActivity extends BaseActivity {
@@ -20,8 +21,8 @@ public class SplashActivity extends BaseActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
 
         mBinding.pathView.getPathAnimator()
-                .delay(300)
-                .duration(4000)
+                .delay(500)
+                .duration(2000)
                 .listenerEnd(new PathView.AnimatorBuilder.ListenerEnd() {
                     @Override
                     public void onAnimationEnd() {
@@ -31,5 +32,10 @@ public class SplashActivity extends BaseActivity {
                 })
                 .interpolator(new AccelerateDecelerateInterpolator())
                 .start();
+    }
+
+    @Override
+    public void setupActivityComponent(AppComponent appComponent) {
+
     }
 }

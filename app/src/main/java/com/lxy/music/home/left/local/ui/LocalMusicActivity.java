@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import com.lxy.music.R;
 import com.lxy.music.base.BaseActivity;
 import com.lxy.music.databinding.ActivityLocalMusicBinding;
+import com.lxy.music.di.component.AppComponent;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,11 @@ public class LocalMusicActivity extends BaseActivity {
         mFragments.add(new LocalAlbumFragment());
 
         mBinding.tabLayout.setViewPager(mBinding.viewPager, mTitles, this, mFragments);
+
+    }
+
+    @Override
+    public void setupActivityComponent(AppComponent appComponent) {
 
     }
 }

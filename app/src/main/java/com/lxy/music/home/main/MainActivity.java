@@ -9,10 +9,8 @@ import android.support.v4.app.Fragment;
 
 import com.lxy.music.R;
 import com.lxy.music.base.BaseActivity;
-import com.lxy.music.base.BaseApplication;
-import com.lxy.music.base.BaseViewModel;
 import com.lxy.music.databinding.ActivityMainBinding;
-import com.lxy.music.di.component.DaggerActivityComponent;
+import com.lxy.music.di.component.AppComponent;
 import com.lxy.music.home.find.ui.FindFragment;
 import com.lxy.music.home.left.local.ui.LocalMusicActivity;
 import com.lxy.music.home.main.iview.MainLocalMusicListener;
@@ -23,17 +21,12 @@ import com.lxy.music.util.UiUtils;
 
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
 public class MainActivity extends BaseActivity implements MainLocalMusicListener {
 
     private ActivityMainBinding mBinding;
     private final String[] mTitles = {"热门推荐", "我的", "发现"};
     private ArrayList<Fragment> mFragments;
     private HomePagerAdapter mAdapter;
-
-    @Inject
-    BaseViewModel baseViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +38,12 @@ public class MainActivity extends BaseActivity implements MainLocalMusicListener
         mBinding.coorLayout.setPadding(0, h, 0, 0);
         //mBinding.ivHeader.setPadding(0, h, 0, 0);
 
-        BaseApplication application = (BaseApplication) getApplication();
-
-        DaggerActivityComponent.builder().appComponent(BaseApplication.getInstance().getAppComponent())
-                .build().inject(this);
-
         initData();
         initEvents();
 
         MainViewModel mainViewModel = new MainViewModel(mBinding, this);
 
-
-        System.out.println("baseViewModel======" + baseViewModel);
     }
-
 
     public void initData() {
         mFragments = new ArrayList<>();
@@ -77,6 +62,15 @@ public class MainActivity extends BaseActivity implements MainLocalMusicListener
     @Override
     public void setFitsWindow(boolean fits) {
         super.setFitsWindow(false);
+    }
+
+    @Override
+    public void setupActivityComponent(AppComponent appComponent) {
+
+//        DaggerActivityComponent.builder().appComponent(appComponent)
+//                .build().inject(this);
+
+        System.out.println("appComponent======" + appComponent);
     }
 
     @Override

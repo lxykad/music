@@ -1,7 +1,6 @@
 package com.lxy.music.home.left.local.ui;
 
 
-import android.database.DatabaseUtils;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,33 +13,38 @@ import com.lxy.music.R;
 import com.lxy.music.base.BaseFragment;
 import com.lxy.music.common.Song;
 import com.lxy.music.databinding.FragmentLocalMusicBinding;
-import com.lxy.music.home.left.local.Iface.ILocalMusic;
+import com.lxy.music.di.component.AppComponent;
 import com.lxy.music.home.left.local.adapter.LocalMusicAdapter;
-import com.lxy.music.home.left.local.moudle.LocalMusicMoudle;
+import com.lxy.music.home.left.local.callback.LocalMusicCallback;
+import com.lxy.music.home.left.local.presenter.LocalMusicPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LocalMusicFragment extends BaseFragment implements ILocalMusic{
+public class LocalMusicFragment extends BaseFragment implements LocalMusicCallback {
 
 
     private FragmentLocalMusicBinding mBinding;
     private LocalMusicAdapter mAdapter;
     private List<Song> mList = new ArrayList<>();
 
+    @Inject
+    LocalMusicPresenter mLocalMusicPresenter;
+
     public LocalMusicFragment() {
 
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_local_music, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_local_music, container, false);
 
         return mBinding.getRoot();
     }
@@ -53,18 +57,27 @@ public class LocalMusicFragment extends BaseFragment implements ILocalMusic{
     @Override
     protected void firstVisiableToUser() {
 
-        mAdapter = new LocalMusicAdapter(R.layout.list_item_local_music,mList);
+        mAdapter = new LocalMusicAdapter(R.layout.list_item_local_music, mList);
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.recyclerView.setAdapter(mAdapter);
 
-        LocalMusicMoudle moudle = new LocalMusicMoudle(this);
-        moudle.getLocalMusic(getContext());
+        //mLocalMusicPresenter.getLocalMusic();
+        //mLocalMusicPresenter = new LocalMusicPresenter();
+        System.out.println("presenter======"+mLocalMusicPresenter);
     }
 
+    @Override
+    protected void setupActivityComponent(AppComponent appComponent) {
+
+    }
 
     @Override
-    public void onComplete(ArrayList<Song> list) {
-
+    public void onSuccess(List<Song> list) {
         mAdapter.addAll(list);
+    }
+
+    @Override
+    public void onError() {
+
     }
 }

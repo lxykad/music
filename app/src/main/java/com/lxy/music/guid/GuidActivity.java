@@ -9,6 +9,7 @@ import android.view.View;
 import com.lxy.music.R;
 import com.lxy.music.base.BaseActivity;
 import com.lxy.music.databinding.ActivityGuidBinding;
+import com.lxy.music.di.component.AppComponent;
 import com.lxy.music.home.main.MainActivity;
 
 import java.util.ArrayList;
@@ -35,6 +36,11 @@ public class GuidActivity extends BaseActivity {
     @Override
     public void setFitsWindow(boolean fits) {
         super.setFitsWindow(false);
+    }
+
+    @Override
+    public void setupActivityComponent(AppComponent appComponent) {
+
     }
 
     private void iniData() {

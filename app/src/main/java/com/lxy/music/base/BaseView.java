@@ -1,4 +1,4 @@
-package com.lxy.music.view;
+package com.lxy.music.base;
 
 /**
  * Created by lxy on 2017/5/2.

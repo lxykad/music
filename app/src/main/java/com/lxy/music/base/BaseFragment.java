@@ -6,13 +6,20 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.lxy.music.di.component.AppComponent;
+
+import javax.inject.Inject;
+
 /**
  * 结合viewpager 实现fragment的懒加载
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 
     private boolean mIsViewPrepared; // 标识fragment视图已经初始化完毕
     private boolean mHasFetchData; // 标识已经触发过懒加载数据
+
+    @Inject
+    T mPresenter;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -26,6 +33,14 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        setupActivityComponent(BaseApplication.getInstance().getAppComponent());
 
         mIsViewPrepared = true;
 
@@ -58,4 +73,6 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void visiableToUser();
 
     protected abstract void firstVisiableToUser();
+
+    protected abstract void setupActivityComponent(AppComponent appComponent);
 }

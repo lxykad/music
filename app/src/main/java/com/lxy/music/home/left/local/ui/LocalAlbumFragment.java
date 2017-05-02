@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.lxy.music.R;
 import com.lxy.music.base.BaseFragment;
+import com.lxy.music.di.component.AppComponent;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +38,11 @@ public class LocalAlbumFragment extends BaseFragment {
     @Override
     protected void firstVisiableToUser() {
         System.out.println("visiableToUser=====album=====first_visiable");
+    }
+
+    @Override
+    protected void setupActivityComponent(AppComponent appComponent) {
+
     }
 
 }

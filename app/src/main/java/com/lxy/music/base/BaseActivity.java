@@ -16,10 +16,27 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.lxy.music.R;
+import com.lxy.music.di.component.ActivityComponent;
+import com.lxy.music.di.component.AppComponent;
+import com.lxy.music.di.component.DaggerActivityComponent;
+import com.lxy.music.di.module.ActivityMoudle;
 import com.lxy.music.util.ActivityManager;
 import com.lxy.music.util.UiUtils;
 
-public abstract class BaseActivity extends AppCompatActivity {
+import javax.inject.Inject;
+
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
+
+
+    private ActivityComponent mActivityComponent;
+
+    public ActivityComponent getmActivityComponent(){
+
+        return mActivityComponent;
+    }
+
+    @Inject
+    T mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +48,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         //设置状态栏颜色
         setStatusTranslucent();
         setFitsWindow(true);
+
+        mActivityComponent = DaggerActivityComponent.builder()
+                .appComponent(BaseApplication.getInstance().getAppComponent())
+                .activityMoudle(new ActivityMoudle(this))
+                .build();
+
+        setupActivityComponent(BaseApplication.getInstance().getAppComponent());
     }
 
     //snack
@@ -97,5 +121,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
     }
+
+    public abstract void setupActivityComponent(AppComponent appComponent);
 
 }
