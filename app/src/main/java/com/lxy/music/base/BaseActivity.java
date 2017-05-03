@@ -28,6 +28,9 @@ import javax.inject.Inject;
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
 
 
+    @Inject
+    public T mPresenter;
+
     private ActivityComponent mActivityComponent;
 
     public ActivityComponent getmActivityComponent(){
@@ -50,7 +53,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                 .appComponent(BaseApplication.getInstance().getAppComponent())
                 .activityMoudle(new ActivityMoudle(this))
                 .build();
-        //mActivityComponent.inject(this);
 
         setupActivityComponent(BaseApplication.getInstance().getAppComponent());
     }

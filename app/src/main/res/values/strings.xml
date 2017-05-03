@@ -13,4 +13,9 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_test">TestActivity</string>
+
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
+
+
 </resources>

@@ -1,9 +1,9 @@
 package com.lxy.music.home.left.local.ui;
 
 
+import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +15,6 @@ import com.lxy.music.common.Song;
 import com.lxy.music.databinding.FragmentLocalMusicBinding;
 import com.lxy.music.di.component.AppComponent;
 import com.lxy.music.home.left.local.adapter.LocalMusicAdapter;
-import com.lxy.music.home.left.local.callback.LocalMusicCallback;
 import com.lxy.music.home.left.local.di.DaggerLocalMusicComponent;
 import com.lxy.music.home.left.local.di.LocalMusicModule;
 import com.lxy.music.home.left.local.presenter.LocalMusicContract;
@@ -24,15 +23,18 @@ import com.lxy.music.home.left.local.presenter.LocalMusicPresenter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class LocalMusicFragment extends BaseFragment<LocalMusicPresenter> implements LocalMusicCallback, LocalMusicContract.View {
+import javax.inject.Inject;
+
+
+public class LocalMusicFragment extends BaseFragment<LocalMusicPresenter> implements LocalMusicContract.View {
 
 
     private FragmentLocalMusicBinding mBinding;
     private LocalMusicAdapter mAdapter;
     private List<Song> mList = new ArrayList<>();
+
+    @Inject
+    ProgressDialog mProgressDialog;
 
     public LocalMusicFragment() {
 
@@ -69,23 +71,21 @@ public class LocalMusicFragment extends BaseFragment<LocalMusicPresenter> implem
     }
 
     @Override
-    public void onSuccess(List<Song> list) {
-        //mAdapter.addAll(list);
-    }
-
-    @Override
-    public void onError() {
-
-    }
-
-    @Override
     public void showLoading() {
+
+        System.out.println("dialog====" + mProgressDialog);
+        if (!mProgressDialog.isShowing()) {
+            mProgressDialog.show();
+        }
 
     }
 
     @Override
     public void dismissLoading() {
 
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 
     @Override

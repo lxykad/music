@@ -10,5 +10,7 @@
     <color name="black_overlay">#66000000</color>
     <color name="main_color">#39c6c1</color>
     <color name="bg_red">#de342f</color>
+    <color name="color_white">#ffffff</color>
+    <color name="color_black">#000000</color>
 
 </resources>

@@ -33,7 +33,8 @@
                 <RelativeLayout
                     android:id="@+id/toolbar_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/toolbar_height">
+                    android:layout_height="@dimen/toolbar_height"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/iv_home_draw"
@@ -60,17 +61,77 @@
 
                 </RelativeLayout>
 
-                <com.flyco.tablayout.SlidingTabLayout
-                    android:id="@+id/sliding_tab_layout"
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/tool_bar"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:background="@color/status_bar_color"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    app:tl_indicator_margin_left="2dp"
-                    app:tl_indicator_margin_right="2dp"
-                    app:tl_indicator_style="BLOCK"
-                    app:tl_indicator_width_equal_title="true" />
+                    android:layout_height="wrap_content"
+                    android:minHeight="?attr/actionBarSize"
+                    android:visibility="gone"
+                    app:title="music" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/iv_left_menu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        app:srcCompat="@drawable/ic_menu_white" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/iv_right_menu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        app:srcCompat="@drawable/ic_mic_white" />
+
+                    <com.flyco.tablayout.SlidingTabLayout
+                        android:id="@+id/sliding_tab_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_toLeftOf="@+id/iv_right_menu"
+                        android:layout_toRightOf="@+id/iv_left_menu"
+                        android:background="@color/status_bar_color"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        app:tl_indicator_color="#33000000"
+                        app:tl_indicator_margin_left="2dp"
+                        app:tl_indicator_margin_right="2dp"
+                        app:tl_indicator_style="BLOCK"
+                        app:tl_indicator_width_equal_title="true"
+                        app:tl_tab_space_equal="true" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/search_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="#33000000">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:drawableLeft="@drawable/ic_search_white"
+                        android:drawablePadding="5dp"
+                        android:gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:text="搜索"
+                        android:textColor="@color/color_white" />
+
+                </RelativeLayout>
 
                 <android.support.v4.view.ViewPager
                     android:id="@+id/view_pager"
@@ -102,7 +163,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:background="@color/status_bar_color">
-
 
                 </RelativeLayout>
 

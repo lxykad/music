@@ -2,10 +2,9 @@ package com.lxy.music.home.left.local.di;
 
 import android.app.ProgressDialog;
 
-import com.lxy.music.base.BaseApplication;
 import com.lxy.music.home.left.local.moudle.LocalMusicModel;
 import com.lxy.music.home.left.local.presenter.LocalMusicContract;
-import com.lxy.music.home.left.local.presenter.LocalMusicPresenter;
+import com.lxy.music.home.left.local.ui.LocalMusicFragment;
 
 import dagger.Module;
 import dagger.Provides;
@@ -24,20 +23,20 @@ public class LocalMusicModule {
     }
 
     @Provides
-    public LocalMusicContract.View provideView(){
+    public LocalMusicContract.View provideView() {
         return mView;
     }
 
     @Provides
-    public LocalMusicModel provideModel(){
+    public LocalMusicModel provideModel() {
 
         return new LocalMusicModel();
     }
 
     @Provides
-    public ProgressDialog provideDialog(){
+    public ProgressDialog provideDialog(LocalMusicContract.View view) {
 
-        return new ProgressDialog(BaseApplication.getInstance());
+        return new ProgressDialog(((LocalMusicFragment) view).getActivity());
     }
 
 }

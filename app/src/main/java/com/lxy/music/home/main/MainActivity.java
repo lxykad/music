@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarDrawerToggle;
 
 import com.lxy.music.R;
 import com.lxy.music.base.BaseActivity;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 public class MainActivity extends BaseActivity implements MainLocalMusicListener {
 
     private ActivityMainBinding mBinding;
-    private final String[] mTitles = {"热门推荐", "我的", "发现"};
+    private final String[] mTitles = {"我的", "热门推荐", "发现"};
     private ArrayList<Fragment> mFragments;
     private HomePagerAdapter mAdapter;
 
@@ -47,8 +48,8 @@ public class MainActivity extends BaseActivity implements MainLocalMusicListener
 
     public void initData() {
         mFragments = new ArrayList<>();
-        mFragments.add(new RecommendFragment());
         mFragments.add(new MyFragment());
+        mFragments.add(new RecommendFragment());
         mFragments.add(new FindFragment());
     }
 
@@ -56,6 +57,12 @@ public class MainActivity extends BaseActivity implements MainLocalMusicListener
         mAdapter = new HomePagerAdapter(getSupportFragmentManager(), mFragments, mTitles);
         mBinding.viewPager.setAdapter(mAdapter);
         mBinding.slidingTabLayout.setViewPager(mBinding.viewPager);
+
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mBinding.drawerLayout, mBinding.toolBar, R.string.open, R.string.close);
+
+        drawerToggle.syncState();
+
+        mBinding.drawerLayout.addDrawerListener(drawerToggle);
 
     }
 
@@ -67,10 +74,6 @@ public class MainActivity extends BaseActivity implements MainLocalMusicListener
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
 
-//        DaggerActivityComponent.builder().appComponent(appComponent)
-//                .build().inject(this);
-
-        System.out.println("appComponent======" + appComponent);
     }
 
     @Override
