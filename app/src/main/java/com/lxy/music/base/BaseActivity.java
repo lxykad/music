@@ -35,9 +35,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         return mActivityComponent;
     }
 
-    @Inject
-    T mPresenter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +50,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                 .appComponent(BaseApplication.getInstance().getAppComponent())
                 .activityMoudle(new ActivityMoudle(this))
                 .build();
+        //mActivityComponent.inject(this);
 
         setupActivityComponent(BaseApplication.getInstance().getAppComponent());
     }

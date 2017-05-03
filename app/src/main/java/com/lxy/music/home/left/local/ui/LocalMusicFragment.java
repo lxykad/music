@@ -16,25 +16,23 @@ import com.lxy.music.databinding.FragmentLocalMusicBinding;
 import com.lxy.music.di.component.AppComponent;
 import com.lxy.music.home.left.local.adapter.LocalMusicAdapter;
 import com.lxy.music.home.left.local.callback.LocalMusicCallback;
+import com.lxy.music.home.left.local.di.DaggerLocalMusicComponent;
+import com.lxy.music.home.left.local.di.LocalMusicModule;
+import com.lxy.music.home.left.local.presenter.LocalMusicContract;
 import com.lxy.music.home.left.local.presenter.LocalMusicPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LocalMusicFragment extends BaseFragment implements LocalMusicCallback {
+public class LocalMusicFragment extends BaseFragment<LocalMusicPresenter> implements LocalMusicCallback, LocalMusicContract.View {
 
 
     private FragmentLocalMusicBinding mBinding;
     private LocalMusicAdapter mAdapter;
     private List<Song> mList = new ArrayList<>();
-
-    @Inject
-    LocalMusicPresenter mLocalMusicPresenter;
 
     public LocalMusicFragment() {
 
@@ -61,23 +59,47 @@ public class LocalMusicFragment extends BaseFragment implements LocalMusicCallba
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.recyclerView.setAdapter(mAdapter);
 
-        //mLocalMusicPresenter.getLocalMusic();
-        //mLocalMusicPresenter = new LocalMusicPresenter();
-        System.out.println("presenter======"+mLocalMusicPresenter);
+        mPresenter.getLocalMusic();
     }
 
     @Override
-    protected void setupActivityComponent(AppComponent appComponent) {
-
+    protected void setupFragmentComponent(AppComponent appComponent) {
+        DaggerLocalMusicComponent.builder().appComponent(appComponent)
+                .localMusicModule(new LocalMusicModule(this)).build().inject(this);
     }
 
     @Override
     public void onSuccess(List<Song> list) {
-        mAdapter.addAll(list);
+        //mAdapter.addAll(list);
     }
 
     @Override
     public void onError() {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+
+    }
+
+    @Override
+    public void showResust(List<Song> list) {
+        mAdapter.addAll(list);
+    }
+
+    @Override
+    public void showNoData() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
 
     }
 }

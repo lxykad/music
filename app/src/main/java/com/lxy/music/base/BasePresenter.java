@@ -2,8 +2,6 @@ package com.lxy.music.base;
 
 import javax.inject.Inject;
 
-import dagger.Provides;
-
 /**
  * Created by lxy on 2017/5/2.
  */

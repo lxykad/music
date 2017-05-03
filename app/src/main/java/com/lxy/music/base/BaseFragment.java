@@ -19,7 +19,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     private boolean mHasFetchData; // 标识已经触发过懒加载数据
 
     @Inject
-    T mPresenter;
+    public T mPresenter;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -40,7 +40,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        setupActivityComponent(BaseApplication.getInstance().getAppComponent());
+        setupFragmentComponent(BaseApplication.getInstance().getAppComponent());
 
         mIsViewPrepared = true;
 
@@ -74,5 +74,5 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 
     protected abstract void firstVisiableToUser();
 
-    protected abstract void setupActivityComponent(AppComponent appComponent);
+    protected abstract void setupFragmentComponent(AppComponent appComponent);
 }

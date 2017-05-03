@@ -8,12 +8,11 @@ import javax.inject.Scope;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Created by lxy on 2017/5/2.
+ * Created by lxy on 2017/5/3.
  */
 
 @Scope
 @Documented
 @Retention(RUNTIME)
 public @interface FragmentScope {
-
 }

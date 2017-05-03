@@ -41,7 +41,7 @@ public class LocalAlbumFragment extends BaseFragment {
     }
 
     @Override
-    protected void setupActivityComponent(AppComponent appComponent) {
+    protected void setupFragmentComponent(AppComponent appComponent) {
 
     }
 
